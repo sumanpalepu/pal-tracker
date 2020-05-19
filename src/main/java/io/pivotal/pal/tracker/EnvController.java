@@ -15,26 +15,36 @@ public class EnvController {
     private final String cfInstanceIndex;
     private final String cfInstanceAddress;
 
-    public EnvController(
-            @Value("${port:NOT SET}") String port,
-            @Value("${memory.limit:NOT SET}") String memoryLimit,
-            @Value("${cf.instance.index:NOT SET}") String cfInstanceIndex,
-            @Value("${cf.instance.addr:NOT SET}") String cfInstanceAddress
-    ) {
+
+    /**
+     * Constructor with 4 variables being assigned via environment variable
+     * @param port
+     * @param memoryLimit
+     * @param cfInstanceIndex
+     * @param cfInstanceAddress
+     */
+    public EnvController(@Value("${port:NOT SET}") String port,
+                         @Value("${memoryLimit:NOT SET}") String memoryLimit,
+                         @Value("${cfInstanceIndex:NOT SET}") String cfInstanceIndex,
+                         @Value("${cfInstanceAddress:NOT SET}") String cfInstanceAddress) {
         this.port = port;
         this.memoryLimit = memoryLimit;
         this.cfInstanceIndex = cfInstanceIndex;
         this.cfInstanceAddress = cfInstanceAddress;
     }
 
+    /**
+     *
+     * @return environment variable
+     */
     @GetMapping("/env")
     public Map<String, String> getEnv() {
-        Map<String, String> env = new HashMap<>();
 
+        Map<String, String> env = new HashMap<>();
         env.put("PORT", port);
         env.put("MEMORY_LIMIT", memoryLimit);
         env.put("CF_INSTANCE_INDEX", cfInstanceIndex);
-        env.put("CF_INSTANCE_ADDR", cfInstanceAddress);
+        env.put("CF_INSTANCE_ADDRESS", cfInstanceAddress);
 
         return env;
     }
